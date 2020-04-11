@@ -12,7 +12,7 @@ typedef struct Neural
     struct Neural *nextn;
 } neural;
 
-neural *new_neural();
+neural * new_neural();
 void NOT(neural **Inicio);
 
 int main()
@@ -34,7 +34,7 @@ neural *new_neural()
 
 void NOT(neural **Inicio)
 {
-    float n = 0, E = 0, Y, Yp = 0, Z = 0;
+    float n = 0, E = 0, Y , Yp = 0, Z = 0;
     neural *temp;
     temp = *Inicio;
     n = 0.5;
@@ -45,21 +45,28 @@ void NOT(neural **Inicio)
     {
         printf("Inserta tu entrada(0 o 1):\n");
         scanf("%f", &temp->x[0]);
-        /*if(temp->x[0] == 0)
-{
-Y=1;
-}else{
-Y=0;
-}*/
 
-        Z = temp->w[0] * temp->x[0] + 0.0001;
+        if(temp->x[0]==0){
+          Y=1;
+          temp->x[0]=0.01;
+        } else {
+          Y=0;
+        }
+        Z = temp->w[0] * temp->x[0];
         Yp = (1) / (1 + exp(Z));
-        E = (Y - Yp);
+        E = (Yp-Y);
 
         temp->w[0] = temp->w[0] + (n * E * temp->x[0]);
 
-        printf("%f\n\n", temp->w[0]);
-        printf("%f\n", Yp);
-        printf("%f\n", E);
+        //printf("w -> %f\n\n", temp->w[0]);
+        printf("salida -> %f\n", Yp);
+        if(Yp<0.2){
+          //se guardan las w
+          printf("final 0 \n");
+        }
+        if (Yp>0.8) {
+          printf("final 1 \n");
+        }
+        //printf("Error -> %f\n", E);
     }
 }
