@@ -1,75 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
-#include <math.h>
 
-//Tratamiento en bits del bitwise
-typedef struct Neural
-{
-    float x[2];
-    float w[2];
-    struct Neural *nextn;
-} neural;
-
-neural * new_neural();
-void NOT(neural **Inicio);
+#include "model.h"
+#include "view.h"
 
 int main()
 {
+    int op, num_inputs, switchOp = 0;
+
+    op = 0;
+    initial_menu();
     neural *Inicio, *temp;
     Inicio = new_neural();
-    //printf("%d\n", Inicio->id);
-    NOT(&Inicio);
-}
-
-neural *new_neural()
-{
-    //printf("%d", id);
-    neural *temp;
-    temp = (neural *)malloc(sizeof(neural));
-    temp->nextn = NULL;
-    return temp;
-}
-
-void NOT(neural **Inicio)
-{
-    float n = 0, E = 0, Y , Yp = 0, Z = 0;
-    int i=0;
-    neural *temp;
-    temp = *Inicio;
-    n = 0.5;
-
-    temp->w[0] = 0.5;
-
-    while (i<=500)
+    while (switchOp != 6)
     {
-        //printf("Inserta tu entrada(0 o 1):\n");
-        //scanf("%f", &temp->x[0]);
-        temp->x[0]=1;
+        switchOp = main_menu(&num_inputs);
 
-        if(temp->x[0]==0){
-          Y=1;
-          temp->x[0]=0.01;
-        } else {
-          Y=0;
+        switch (switchOp)
+        {
+        case 1:
+            OR();
+            getchar();
+            break;
+        case 2:
+            AND();
+            getchar();
+            break;
+        case 3:
+            XOR();
+            getchar();
+            break;
+        case 4:
+            NOT(&Inicio);
+            getchar();
+            break;
+        case 5:
+            XNOR();
+            getchar();
+            break;
         }
-        Z = temp->w[0] * temp->x[0];
-        Yp = (1) / (1 + exp(Z));
-        E = (Yp-Y);
-
-        temp->w[0] = temp->w[0] + (n * E * temp->x[0]);
-
-        //printf("w -> %f\n\n", temp->w[0]);
-        printf("%d salida -> %f\n",i, Yp);
-        if(Yp<0.2){
-          //se guardan las w
-          printf("final 0 \n");
-        }
-        if (Yp>0.8) {
-          printf("final 1 \n");
-        }
-        i++;
-        //printf("Error -> %f\n", E);
+        final_menu();
     }
+    return 0;
 }

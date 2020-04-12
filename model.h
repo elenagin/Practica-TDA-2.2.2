@@ -1,103 +1,86 @@
-typedef struct def_elemento
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+#include <math.h>
+
+//Tratamiento en bits del bitwise
+typedef struct Neural
 {
-    int dato;
-    struct def_elemento *sig;
-} tipoElemento;
+    float x[2];
+    float w[2];
+    struct Neural *nextn;
+} neural;
 
 
-void InsertaInicio(tipoElemento **Inicio, int bin)
+neural *new_neural()
 {
-    tipoElemento *temp;
-    temp = (tipoElemento *)malloc(sizeof(tipoElemento));
-    temp->dato = bin;
-    temp->sig = *Inicio;
-    *Inicio = temp;
+    //printf("%d", id);
+    neural *temp;
+    temp = (neural *)malloc(sizeof(neural));
+    temp->nextn = NULL;
+    return temp;
 }
 
-void Imprime(tipoElemento *Inicio)
+void OR()
 {
-    tipoElemento *temp;
-    temp = Inicio;
-    printf("Imprimiendo lista...\n");
-    while (temp != NULL)
-    {
-        printf("\t%d\n", temp->dato);
-        temp = temp->sig;
-    }
-    getchar();
+    printf("OR");
 }
 
-void OR(tipoElemento *Inicio)
+void AND()
 {
-    tipoElemento *temp;
-    int t;
-    temp = Inicio;
-    t = temp->dato;
-    while (temp->sig != NULL)
-    {
-        if ((t == 0) && (temp->sig->dato == 0))
-        {
-            t = 0;
-        }
-        else if ((t == 0) && (temp->sig->dato == 1))
-        {
-            t = 1;
-        }
-        else if ((t == 1) && (temp->sig->dato == 0))
-        {
-            t = 1;
-        }
-        else if ((t == 1) && (temp->sig->dato == 1))
-        {
-            t = 1;
-        }
-        temp = temp->sig;
-    }
-
-    printf("t = %d\n", t);
+    printf("AND");
 }
 
-void AND(tipoElemento *Inicio)
-{
-    tipoElemento *temp;
-    int t;
-    temp = Inicio;
-    t = temp->dato;
-    while (temp->sig != NULL)
-    {
-        if ((t == 0) && (temp->sig->dato == 0))
-        {
-            t = 0;
-        }
-        else if ((t == 0) && (temp->sig->dato == 1))
-        {
-            t = 0;
-        }
-        else if ((t == 1) && (temp->sig->dato == 0))
-        {
-            t = 0;
-        }
-        else if ((t == 1) && (temp->sig->dato == 1))
-        {
-            t = 1;
-        }
-        temp = temp->sig;
-    }
-
-    printf("t = %d\n", t);
-}
-
-void XOR(tipoElemento *Inicio)
+void XOR()
 {
     printf("XOR");
 }
 
-void NOT(tipoElemento *Inicio)
+void NOT(neural **Inicio)
 {
-    printf("NOT");
+    float n = 0, E = 0, Y , Yp = 0, Z = 0;
+    int i=0;
+    neural *temp;
+    temp = *Inicio;
+    n = 0.5;
+
+    temp->w[0] = 0.5;
+
+    while (i<=500)
+    {
+        //printf("Inserta tu entrada(0 o 1):\n");
+        //scanf("%f", &temp->x[0]);
+        temp->x[0]=1;
+
+        if(temp->x[0]==0){
+          Y=1;
+          temp->x[0]=0.01;
+        } else {
+          Y=0;
+        }
+        Z = temp->w[0] * temp->x[0];
+        Yp = (1) / (1 + exp(Z));
+        E = (Yp-Y);
+
+        temp->w[0] = temp->w[0] + (n * E * temp->x[0]);
+
+        //printf("w -> %f\n\n", temp->w[0]);
+        printf("%d salida -> %f\n",i, Yp);
+        if(Yp<0.2){
+          //se guardan las w
+          printf("final 0 \n");
+        }
+        if (Yp>0.8) {
+          printf("final 1 \n");
+        }
+        i++;
+        //printf("Error -> %f\n", E);
+    }
 }
 
-void XNOR(tipoElemento *Inicio)
+
+void XNOR()
 {
     printf("XNOR");
 }

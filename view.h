@@ -1,20 +1,3 @@
-void inputs(tipoElemento **Inicio, int *num_inputs)
-{
-    int i, temp;    
-
-    for(i=0; i<*num_inputs; i++){
-        printf("Inserta \"1\" ó \"0\": ");
-        scanf("%d", &temp);
-        InsertaInicio(Inicio, temp);        
-    }
-}
-
-void bla(int *num_inputs)
-{
-    printf("¿Cuántas entradas vas a tener?\n\n");
-    scanf("%d", num_inputs);
-}
-
 void initial_menu(){
     system("clear");
     printf("Bienvenido al sistema\n");
