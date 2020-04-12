@@ -20,11 +20,11 @@ int main()
         switch (switchOp)
         {
         case 1:
-            OR();
+            OR(&Inicio);
             getchar();
             break;
         case 2:
-            AND();
+            AND(&Inicio);
             getchar();
             break;
         case 3:
