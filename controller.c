@@ -35,16 +35,18 @@ neural *new_neural()
 void NOT(neural **Inicio)
 {
     float n = 0, E = 0, Y , Yp = 0, Z = 0;
+    int i=0;
     neural *temp;
     temp = *Inicio;
     n = 0.5;
 
     temp->w[0] = 0.5;
 
-    while (1)
+    while (i<=500)
     {
-        printf("Inserta tu entrada(0 o 1):\n");
-        scanf("%f", &temp->x[0]);
+        //printf("Inserta tu entrada(0 o 1):\n");
+        //scanf("%f", &temp->x[0]);
+        temp->x[0]=1;
 
         if(temp->x[0]==0){
           Y=1;
@@ -59,7 +61,7 @@ void NOT(neural **Inicio)
         temp->w[0] = temp->w[0] + (n * E * temp->x[0]);
 
         //printf("w -> %f\n\n", temp->w[0]);
-        printf("salida -> %f\n", Yp);
+        printf("%d salida -> %f\n",i, Yp);
         if(Yp<0.2){
           //se guardan las w
           printf("final 0 \n");
@@ -67,6 +69,7 @@ void NOT(neural **Inicio)
         if (Yp>0.8) {
           printf("final 1 \n");
         }
+        i++;
         //printf("Error -> %f\n", E);
     }
 }
