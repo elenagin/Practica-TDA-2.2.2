@@ -28,7 +28,7 @@ int main()
             getchar();
             break;
         case 3:
-            XOR();
+            XOR(&Inicio);
             getchar();
             break;
         case 4:
@@ -36,7 +36,7 @@ int main()
             getchar();
             break;
         case 5:
-            XNOR();
+            XNOR(&Inicio);
             getchar();
             break;
         }
