@@ -123,7 +123,7 @@ void AND(neural **Inicio)
     }
 }
 
-void XOR()
+void XOR(neural **Inicio)
 {
     printf("XOR");
 }
@@ -172,7 +172,7 @@ void NOT(neural **Inicio)
     }
 }
 
-void XNOR()
+void XNOR(neural **Inicio)
 {
     printf("XNOR");
 }
