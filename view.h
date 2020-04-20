@@ -13,7 +13,7 @@ void initial_menu(){
 
 void final_menu(){
     printf("Presione enter para continuar...\n");
-    getchar(); 
+    getchar();
 }
 
 int main_menu(int *num_inputs){

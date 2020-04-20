@@ -11,8 +11,10 @@ int main()
 
     op = 0;
     initial_menu();
-    neural *Inicio, *temp;
+    neural *Inicio, *Inicio2;
     Inicio = new_neural();
+    Inicio2 = new_neural();
+
     while (switchOp != 6)
     {
         switchOp = main_menu(&num_inputs);
@@ -28,7 +30,7 @@ int main()
             getchar();
             break;
         case 3:
-            XOR(&Inicio);
+            XOR(&Inicio, &Inicio2);
             getchar();
             break;
         case 4:
@@ -36,7 +38,7 @@ int main()
             getchar();
             break;
         case 5:
-            XNOR(&Inicio);
+            XNOR(&Inicio, &Inicio2);
             getchar();
             break;
         }
